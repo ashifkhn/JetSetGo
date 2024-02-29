@@ -6,7 +6,7 @@ import Home from '../screens/Home/Home';
 import Wallet from '../screens/Wallet/Wallet';
 import GuideTabs from '../screens/Guide/Guide';
 import Chart from '../screens/Chart/Chart';
-import screenSize from '../utils/utils';
+import { scale } from '../utils/utils';
 
 type RootTabParamList = {
   Home: undefined;
@@ -37,11 +37,11 @@ export function MyTabs() {
       screenOptions={({ route }) => ({
         headerShown:false,
         tabBarStyle: {
-          height:screenSize().screenHeight*0.085,
+          height:scale(80),
           borderTopRightRadius:25,
           borderTopLeftRadius:25,
-          paddingBottom:screenSize().screenScale*5,
-          paddingTop:screenSize().screenScale*5,
+          paddingBottom:scale(5),
+          paddingTop:scale(5),
         },
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
