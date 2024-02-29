@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useCallback, useMemo, useRef} from 'react';
+import CheckBox from '@react-native-community/checkbox';
 import {
   View,
   Text,
@@ -16,15 +17,489 @@ import {
 import axios from 'axios';
 import {scale} from '../../utils/utils';
 import StyleConfig from '../../utils/StyleConfig';
-import FlightFrom from '../../components/WeatherTabs/CustomModal';
-import FlightTo from '../../components/WeatherTabs/FlightTo';
-import DepartureModal from '../../components/WeatherTabs/DepartureDateModal';
-import TravelersModal from '../../components/WeatherTabs/TravelersModal';
+import FlightFrom from '../../components/Modals/CustomModal';
+import FlightTo from '../../components/Modals/FlightTo';
+import DepartureModal from '../../components/Modals/DepartureDateModal';
+import TravelersModal from '../../components/Modals/TravelersModal';
 import LinearGradient from 'react-native-linear-gradient';
+import { commonStyles } from '../../utils/CommonStyle';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 // import { ScrollView } from 'react-native-gesture-handler';
 
 
-// CustomModal
+
+
+const flightData1 = [
+  {
+    id: '88jnjn1',
+    fare: 3840,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Bombay',
+          terminal: '3',
+          airportCode: 'BOM',
+          airportName: 'Bombay Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+  {
+    id: '1dkandnidna',
+    fare: 3850,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'DEL',
+          cityName: 'Delhi',
+          terminal: '3',
+          airportCode: 'DEL',
+          airportName: 'Indira Gandhi Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+  {
+    id: '1djanjdna',
+    fare: 3860,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'DEL',
+          cityName: 'Delhi',
+          terminal: '3',
+          airportCode: 'DEL',
+          airportName: 'Indira Gandhi Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+  {
+    id: 'djad1djna',
+    fare: 3870,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'DEL',
+          cityName: 'Delhi',
+          terminal: '3',
+          airportCode: 'DEL',
+          airportName: 'Indira Gandhi Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+  {
+    id: '1dmsnd',
+    fare: 3880,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'DEL',
+          cityName: 'Delhi',
+          terminal: '3',
+          airportCode: 'DEL',
+          airportName: 'Indira Gandhi Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+  {
+    id: '1dajndja',
+    fare: 38401,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'DEL',
+          cityName: 'Delhi',
+          terminal: '3',
+          airportCode: 'DEL',
+          airportName: 'Indira Gandhi Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+  {
+    id: 'jdn11jdn1',
+    fare: 999999,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'DEL',
+          cityName: 'Delhi',
+          terminal: '3',
+          airportCode: 'DEL',
+          airportName: 'Indira Gandhi Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+  {
+    id: '1wnj',
+    fare: 38140,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'DEL',
+          cityName: 'Delhi',
+          terminal: '3',
+          airportCode: 'DEL',
+          airportName: 'Indira Gandhi Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+  {
+    id: '1www',
+    fare: 384000,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'DEL',
+          cityName: 'Delhi',
+          terminal: '3',
+          airportCode: 'DEL',
+          airportName: 'Indira Gandhi Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+  {
+    id: '1wjnwjw',
+    fare: 380140,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'DEL',
+          cityName: 'Delhi',
+          terminal: '3',
+          airportCode: 'DEL',
+          airportName: 'Indira Gandhi Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+  {
+    id: '1w1w1w1w1',
+    fare: 381140,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'DEL',
+          cityName: 'Delhi',
+          terminal: '3',
+          airportCode: 'DEL',
+          airportName: 'Indira Gandhi Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+  
+  {
+    id: '1wllll',
+    fare: 38140,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'DEL',
+          cityName: 'Delhi',
+          terminal: '3',
+          airportCode: 'DEL',
+          airportName: 'Indira Gandhi Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+];
 
 const Home = () => {
   const [modalVisibleFrom, setModalVisibleFrom] = useState(false);
@@ -41,11 +516,22 @@ const Home = () => {
     children: 0,
     infants: 0
   })
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+
+  const swapCities=()=>{
+    let temp = sourceDetails;
+    setSourceDetails(destinationDetails)
+    setDestinationDetails(temp)
+  }
+
+ 
+
+  console.log(travelerDetails)
 
   const fetchFlightData = async () => {
     try {
       const response = await axios.get(
-        'https://api.npoint.io/4829d4ab0e96bfab50e7',
+        'https://mocki.io/v1/de081a9f-8d26-4f91-922c-04b0269d4766',
       );
       console.log('Flight data:', JSON.stringify(response.data.data.result));
       setFlightData(response.data.data.result);
@@ -67,7 +553,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#8d0b93', '#7524ac']}
+        colors={['#8d0b93', '#7524ac', '#7524ac']}
         style={{
           flex: 1,
           position: 'absolute',
@@ -84,27 +570,43 @@ const Home = () => {
 
       <View style={styles.formContainer}>
         <View>
-          {/* <Text></Text> */}
           <View style={styles.fromTo}>
             <Pressable
               style={styles.inputFromTo}
               onPress={() => setModalVisibleFrom(true)}>
-              <Text>FROM</Text>
+              <Text>From</Text>
               <TextInput
                 placeholder="Select City"
                 value={sourceDetails?.airport?.cityName}
                 editable={false}
+                style={styles.textInput}
               />
             </Pressable>
+
+            <Pressable
+              style={{
+                width: '10%,',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              onPress={swapCities}>
+              <Icon
+                name={'arrow-left-right'}
+                size={24}
+                color={StyleConfig.colors.primary}
+              />
+            </Pressable>
+
             <Pressable
               style={styles.inputFromTo}
               onPress={() => setModalVisibleTo(true)}>
-              <Text>TO</Text>
+              <Text>To</Text>
               <TextInput
                 placeholder="Select City"
                 value={destinationDetails?.airport?.cityName}
                 onChangeText={text => setToLocation(text)}
                 editable={false}
+                style={styles.textInput}
               />
             </Pressable>
           </View>
@@ -117,7 +619,7 @@ const Home = () => {
                 placeholder="Select Date"
                 value={selectedDate?.dateString}
                 editable={false}
-
+                style={styles.textInput}
               />
             </Pressable>
           </View>
@@ -127,18 +629,36 @@ const Home = () => {
               onPress={() => setModalTraveler(true)}>
               <Text>Travelers & Cabin Class</Text>
               <TextInput
-                placeholder="Select "
-                value={selectedDate?.dateString}
+                placeholder="Select"
+                value={
+                  travelerDetails?.adults +
+                  ' Adults, ' +
+                  travelerDetails?.children +
+                  ' Children, ' +
+                  travelerDetails?.infants +
+                  ' Infants' +
+                  ' : '
+                }
                 editable={false}
+                style={styles.textInput}
               />
             </Pressable>
           </View>
+          <View style={styles.nonStopFlights}>
+            <CheckBox
+              disabled={false}
+              value={toggleCheckBox}
+              onValueChange={newValue => setToggleCheckBox(newValue)}
+            />
+            <Text>Show Non-stop flights only</Text>
+          </View>
+
           <FlightFrom
             modalVisible={modalVisibleFrom}
             setModalVisible={setModalVisibleFrom}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            flightData={flightData}
+            flightData={flightData1}
             setSourceDetails={setSourceDetails}
             sourceDetails={sourceDetails}
           />
@@ -148,7 +668,7 @@ const Home = () => {
             setModalVisible={setModalVisibleTo}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            flightData={flightData}
+            flightData={flightData1}
             setDestinationDetails={setDestinationDetails}
             destinationDetails={destinationDetails}
           />
@@ -164,12 +684,13 @@ const Home = () => {
           <TravelersModal
             modalVisible={modalTraveler}
             setModalVisible={setModalTraveler}
-            selectedDate={travelerDetails}
-            setSelectedDate={setTravelerDetails}
-            setModalVisible={setModalTraveler}
+            travelerDetails={travelerDetails}
+            setTravelerDetails={setTravelerDetails}
           />
-          <TouchableOpacity style={styles.button} onPress={handleSearchFlights}>
-            <Text style={styles.buttonText}>Search Flights</Text>
+          <TouchableOpacity
+            style={commonStyles.button}
+            onPress={handleSearchFlights}>
+            <Text style={commonStyles.buttonText}>Search Flights</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -190,27 +711,21 @@ const styles = StyleSheet.create({
   },
 
   inputFromTo: {
-    width: '45%',
+    width: '40%',
     borderBottomWidth: 1,
-    borderBottomColor: '#881098',
+    borderBottomColor: StyleConfig.colors.primary,
     marginHorizontal: 10,
   },
   inputDeparture: {
     width: '95%',
     borderBottomWidth: 1,
-    borderBottomColor: '#881098',
+    borderBottomColor: StyleConfig.colors.primary,
     marginHorizontal: 10,
-
   },
 
   header: {
     marginTop: 50,
     marginBottom: 30,
-  },
-  headerText: {
-    fontSize: 24,
-    color: '#0373F3',
-    textAlign: 'center',
   },
   primaryText: {
     fontWeight: 'bold',
@@ -220,7 +735,7 @@ const styles = StyleSheet.create({
     // borderWidth: 0.5,
     borderRadius: 8,
     borderColor: '#808080',
-    padding: 20,
+    // padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -235,21 +750,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingHorizontal: 10,
   },
-  button: {
-    backgroundColor: '#881098',
-    paddingVertical: 10,
-    // paddingHorizontal: 40,
-    borderRadius: 5,
-    marginHorizontal: 20,
-    textAlign: 'center',
-    marginVertical: scale(10),
+  textInput: {
+    color: StyleConfig.colors.darkGrey,
+    fontSize: scale(16),
+    // fontWeight: 'bold',
   },
-  buttonText: {
-    color: 'white',
-    fontSize: scale(14),
-    textAlign: 'center',
-    fontWeight:"bold"
-
+  nonStopFlights: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: scale(20),
+    // marginVertical:scale(10)
   },
 });
 

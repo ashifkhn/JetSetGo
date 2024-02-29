@@ -6,9 +6,10 @@ import StyleConfig from "../../utils/StyleConfig";
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: 'white',
     padding: 20,
+    marginBottom:20
   },
 
   fromTo: {
@@ -72,10 +73,8 @@ export const styles = StyleSheet.create({
   modalView: {
     backgroundColor: 'white',
     // borderRadius: 20,
-    height: Dimensions.get('screen').height,
+    height: "100%",
     width: Dimensions.get('screen').width,
-    // marginTop: 40,
-    // alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -106,7 +105,7 @@ export const styles = StyleSheet.create({
     // textAlign: 'center',
     fontSize: scale(24),
     fontWeight: 'bold',
-    color: StyleConfig.colors.darkGrey,
+    color: StyleConfig.colors.greyLabel,
     marginLeft: scale(10),
     marginTop: scale(10),
   },
@@ -130,11 +129,27 @@ export const styles = StyleSheet.create({
   countContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: scale(35),
     justifyContent: 'space-between',
   },
   buttonContainer: {
     flexDirection: 'row',
     marginLeft: 10,
+    alignItems: 'center',
+  },
+  classContainer: {
+    
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 20,
+  },
+  classButton: {
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'gray',
+  },
+  selectedClass: {
+    backgroundColor: 'lightblue',
   },
 });
