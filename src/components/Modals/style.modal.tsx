@@ -6,9 +6,10 @@ import StyleConfig from "../../utils/StyleConfig";
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: 'white',
     padding: 20,
+    marginBottom:20
   },
 
   fromTo: {
@@ -72,10 +73,8 @@ export const styles = StyleSheet.create({
   modalView: {
     backgroundColor: 'white',
     // borderRadius: 20,
-    height: Dimensions.get('screen').height,
+    height: "100%",
     width: Dimensions.get('screen').width,
-    // marginTop: 40,
-    // alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

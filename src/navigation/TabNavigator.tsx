@@ -43,13 +43,10 @@ export function MyTabs() {
           height:scale(60),
           borderTopRightRadius:25,
           borderTopLeftRadius:25,
-          // paddingBottom:scale(5),
-          // paddingTop:scale(15),
+          paddingBottom:scale(5),
         },
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          
-
           if (route.name === 'Flights') {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Bookings') {

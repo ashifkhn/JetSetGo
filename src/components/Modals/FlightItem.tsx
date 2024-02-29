@@ -8,17 +8,24 @@ import { scale } from '../../utils/utils';
 
 const FlightFromItem = ({ item,sourceDetails,setSourceDetails,setModalVisible}) => {
   return (
-        <Pressable style={{ flexDirection: 'row',marginVertical:scale(20),marginHorizontal:scale(10) }} onPress={() => {
-        console.log(item.displayData.source)
-        setSourceDetails(item.displayData.source)
-        setModalVisible(false)
-    }}>
-      <View style={{ flex: 1 }}>
+    <Pressable
+      style={{
+        flexDirection: 'row',
+        marginVertical: scale(20),
+        marginHorizontal: scale(10),
+      }}
+      onPress={() => {
+        console.log(item.displayData.source);
+        setSourceDetails(item.displayData.source);
+        setModalVisible(false);
+      }}>
+      <View style={{flex: 1}}>
         <Text>{item.displayData.source.airport.cityName}</Text>
         <Text>{item.displayData.source.airport.airportName}</Text>
       </View>
-      <View>
+      <View style={{display:"flex",alignItems:"flex-end"}}>
         <Text>{item.displayData.source.airport.airportCode}</Text>
+        <Text>₹{item.fare}</Text>
       </View>
     </Pressable>
   );
@@ -42,6 +49,7 @@ const FlightToItem = ({ item,destinationDetails,setDestinationDetails,setModalVi
         <Text>{item.displayData.destination.airport.airportName}</Text>
       </View>
       <View>
+        <Text>{item.displayData.destination.airport.airportCode}</Text>
         <Text>{item.displayData.destination.airport.airportCode}</Text>
       </View>
     </Pressable>

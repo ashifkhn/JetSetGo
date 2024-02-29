@@ -31,8 +31,47 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const flightData1 = [
   {
-    id: '1',
+    id: '88jnjn1',
     fare: 3840,
+    displayData: {
+      source: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Bombay',
+          terminal: '3',
+          airportCode: 'BOM',
+          airportName: 'Bombay Airport',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        depTime: '2023-03-31T06:20',
+      },
+      airlines: [
+        {
+          airlineCode: 'AB',
+          airlineName: 'JetSpice',
+          flightNumber: '1234',
+        },
+      ],
+      stopInfo: 'Non stop',
+      destination: {
+        airport: {
+          cityCode: 'BOM',
+          cityName: 'Mumbai',
+          terminal: '2',
+          airportCode: 'BOM',
+          airportName: 'Mumbai',
+          countryCode: 'IN',
+          countryName: 'India',
+        },
+        arrTime: '2023-03-31T08:40',
+      },
+      totalDuration: '2h 20m',
+    },
+  },
+  {
+    id: '1dkandnidna',
+    fare: 3850,
     displayData: {
       source: {
         airport: {
@@ -70,8 +109,8 @@ const flightData1 = [
     },
   },
   {
-    id: '1',
-    fare: 3840,
+    id: '1djanjdna',
+    fare: 3860,
     displayData: {
       source: {
         airport: {
@@ -109,8 +148,8 @@ const flightData1 = [
     },
   },
   {
-    id: '1',
-    fare: 3840,
+    id: 'djad1djna',
+    fare: 3870,
     displayData: {
       source: {
         airport: {
@@ -148,8 +187,8 @@ const flightData1 = [
     },
   },
   {
-    id: '1',
-    fare: 3840,
+    id: '1dmsnd',
+    fare: 3880,
     displayData: {
       source: {
         airport: {
@@ -187,8 +226,8 @@ const flightData1 = [
     },
   },
   {
-    id: '1',
-    fare: 3840,
+    id: '1dajndja',
+    fare: 38401,
     displayData: {
       source: {
         airport: {
@@ -226,8 +265,8 @@ const flightData1 = [
     },
   },
   {
-    id: '1',
-    fare: 3840,
+    id: 'jdn11jdn1',
+    fare: 999999,
     displayData: {
       source: {
         airport: {
@@ -265,8 +304,8 @@ const flightData1 = [
     },
   },
   {
-    id: '1',
-    fare: 3840,
+    id: '1wnj',
+    fare: 38140,
     displayData: {
       source: {
         airport: {
@@ -304,8 +343,8 @@ const flightData1 = [
     },
   },
   {
-    id: '1',
-    fare: 3840,
+    id: '1www',
+    fare: 384000,
     displayData: {
       source: {
         airport: {
@@ -343,8 +382,8 @@ const flightData1 = [
     },
   },
   {
-    id: '1',
-    fare: 3840,
+    id: '1wjnwjw',
+    fare: 380140,
     displayData: {
       source: {
         airport: {
@@ -382,47 +421,8 @@ const flightData1 = [
     },
   },
   {
-    id: '1',
-    fare: 3840,
-    displayData: {
-      source: {
-        airport: {
-          cityCode: 'DEL',
-          cityName: 'Delhi',
-          terminal: '3',
-          airportCode: 'DEL',
-          airportName: 'Indira Gandhi Airport',
-          countryCode: 'IN',
-          countryName: 'India',
-        },
-        depTime: '2023-03-31T06:20',
-      },
-      airlines: [
-        {
-          airlineCode: 'AB',
-          airlineName: 'JetSpice',
-          flightNumber: '1234',
-        },
-      ],
-      stopInfo: 'Non stop',
-      destination: {
-        airport: {
-          cityCode: 'BOM',
-          cityName: 'Mumbai',
-          terminal: '2',
-          airportCode: 'BOM',
-          airportName: 'Mumbai',
-          countryCode: 'IN',
-          countryName: 'India',
-        },
-        arrTime: '2023-03-31T08:40',
-      },
-      totalDuration: '2h 20m',
-    },
-  },
-  {
-    id: '1',
-    fare: 3840,
+    id: '1w1w1w1w1',
+    fare: 381140,
     displayData: {
       source: {
         airport: {
@@ -461,8 +461,8 @@ const flightData1 = [
   },
   
   {
-    id: '1',
-    fare: 3840,
+    id: '1wllll',
+    fare: 38140,
     displayData: {
       source: {
         airport: {
@@ -501,8 +501,6 @@ const flightData1 = [
   },
 ];
 
-// CustomModal
-
 const Home = () => {
   const [modalVisibleFrom, setModalVisibleFrom] = useState(false);
   const [modalVisibleTo, setModalVisibleTo] = useState(false);
@@ -526,6 +524,7 @@ const Home = () => {
     setDestinationDetails(temp)
   }
 
+ 
 
   console.log(travelerDetails)
 
@@ -554,7 +553,7 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#8d0b93', '#7524ac']}
+        colors={['#8d0b93', '#7524ac', '#7524ac']}
         style={{
           flex: 1,
           position: 'absolute',

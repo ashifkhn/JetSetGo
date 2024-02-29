@@ -6,16 +6,16 @@ import { commonStyles } from '../../utils/CommonStyle';
 import CloseButton from '../CloseButton';
 import FlightList from './FlightList';
 
-const FlightFrom = ({ modalVisible, setModalVisible, flightData, sourceDetails, setSourceDetails }) => {
+const FlightFrom = ({ modalVisible, setModalVisible, flightData, sourceDetails, setSourceDetails,sortByFare }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
 
-  // const filteredFlightData = flightData.filter(item => {
-  //   const cityName = item.displayData.source.airport.cityName.toLowerCase();
-  //   const airportName = item.displayData.source.airport.airportName.toLowerCase();
-  //   const cityCode = item.displayData.source.airport.cityCode.toLowerCase();
-  //   return cityName.includes(searchQuery.toLowerCase()) || airportName.includes(searchQuery.toLowerCase())||cityCode.includes(searchQuery.toLowerCase());
-  // });
+  const filteredFlightData = flightData.filter(item => {
+    const cityName = item.displayData.source.airport.cityName.toLowerCase();
+    const airportName = item.displayData.source.airport.airportName.toLowerCase();
+    const cityCode = item.displayData.source.airport.cityCode.toLowerCase();
+    return cityName.includes(searchQuery.toLowerCase()) || airportName.includes(searchQuery.toLowerCase())||cityCode.includes(searchQuery.toLowerCase());
+  });
 
   return (
     <Modal
@@ -40,7 +40,7 @@ const FlightFrom = ({ modalVisible, setModalVisible, flightData, sourceDetails, 
           <FlightList />
           <View>
             <FlatList
-              data={flightData}
+              data={filteredFlightData}
               renderItem={({item}) => (
                 <FlightFromItem
                   item={item}

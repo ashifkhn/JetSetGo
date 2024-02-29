@@ -27,6 +27,7 @@ const DepartureModal = ({
     // Cleanup the timer on component unmount
     return () => clearTimeout(timer);
   }, []);
+  
 
   return (
     <Modal
