@@ -6,6 +6,7 @@ import StyleConfig from '../../utils/StyleConfig';
 import { styles } from './style.modal';
 import { commonStyles } from '../../utils/CommonStyle';
 import CloseButton from '../CloseButton';
+import FlightList from './FlightList';
 const FlightTo = ({ modalVisible, setModalVisible, flightData, destinationDetails, setDestinationDetails }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -35,6 +36,7 @@ const FlightTo = ({ modalVisible, setModalVisible, flightData, destinationDetail
             placeholder="Search City/Airport"
           />
           <Text style={commonStyles.fontMedBold}>Popular Cities</Text>
+          <FlightList/>
           <View>
             <FlatList
               data={filteredFlightData}

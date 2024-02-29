@@ -4,9 +4,8 @@ import { RouteProp } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Home from '../screens/Home/Home';
 import Wallet from '../screens/Wallet/Wallet';
-import GuideTabs from '../screens/Guide/Guide';
-import Chart from '../screens/Chart/Chart';
 import { scale } from '../utils/utils';
+import StyleConfig from '../utils/StyleConfig';
 
 type RootTabParamList = {
   Home: undefined;
@@ -29,19 +28,23 @@ type TabBarOptions = {
 
 export function MyTabs() {
   const tabBarOptions: TabBarOptions = {
-    activeTintColor: '#0373F3',
+    activeTintColor: StyleConfig.colors.primary,
     inactiveTintColor: 'gray',
+    
   };
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown:false,
+        tabBarActiveTintColor:StyleConfig.colors.primary,
+        tabBarActiveBackgroundColor:StyleConfig.colors.white,
+        tabBarInactiveBackgroundColor:StyleConfig.colors.white,
         tabBarStyle: {
-          height:scale(80),
+          height:scale(60),
           borderTopRightRadius:25,
           borderTopLeftRadius:25,
-          paddingBottom:scale(5),
-          paddingTop:scale(5),
+          // paddingBottom:scale(5),
+          // paddingTop:scale(15),
         },
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -51,16 +54,10 @@ export function MyTabs() {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'Bookings') {
             iconName = focused ? 'wallet' : 'wallet-outline';
-          } else if (route.name === 'Guide') {
-            iconName = focused ? 'book' : 'book-outline';
-          } else if (route.name === 'Chart') {
-            iconName = focused ? 'stats-chart' : 'stats-chart-outline';
-          }
-
-          return <Icon name={iconName} size={28} color={color} />;
+          } 
+          return <Icon name={iconName} size={28} color={StyleConfig.colors.primary} />;
         },
       })}
-      tabBarStyle={{ height: 100 }} // Adjust the height as needed
     >
       <Tab.Screen name="Flights" component={Home} />
       <Tab.Screen name="Bookings" component={Wallet} />

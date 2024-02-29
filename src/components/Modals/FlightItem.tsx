@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text,Pressable } from 'react-native';
+import { scale } from '../../utils/utils';
 
  const ItemSeparator = () => {
   return <View style={{ height: 1, backgroundColor: 'lightgrey' }} />;
@@ -7,7 +8,7 @@ import { View, Text,Pressable } from 'react-native';
 
 const FlightFromItem = ({ item,sourceDetails,setSourceDetails,setModalVisible}) => {
   return (
-        <Pressable style={{ flexDirection: 'row' }} onPress={() => {
+        <Pressable style={{ flexDirection: 'row',marginVertical:scale(20),marginHorizontal:scale(10) }} onPress={() => {
         console.log(item.displayData.source)
         setSourceDetails(item.displayData.source)
         setModalVisible(false)
@@ -25,12 +26,18 @@ const FlightFromItem = ({ item,sourceDetails,setSourceDetails,setModalVisible}) 
 
 const FlightToItem = ({ item,destinationDetails,setDestinationDetails,setModalVisible }) => {
   return (
-    <Pressable style={{ flexDirection: 'row' }} onPress={() => {
-    console.log(item.displayData.destination)
-    setDestinationDetails(item.displayData.destination)
-    setModalVisible(false)
-    }}>
-      <View style={{ flex: 1 }}>
+    <Pressable
+      style={{
+        flexDirection: 'row',
+        marginVertical: scale(20),
+        marginHorizontal: scale(10),
+      }}
+      onPress={() => {
+        console.log(item.displayData.destination);
+        setDestinationDetails(item.displayData.destination);
+        setModalVisible(false);
+      }}>
+      <View style={{flex: 1}}>
         <Text>{item.displayData.destination.airport.cityName}</Text>
         <Text>{item.displayData.destination.airport.airportName}</Text>
       </View>

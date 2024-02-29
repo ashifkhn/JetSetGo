@@ -4,17 +4,18 @@ import { ItemSeparator, FlightFromItem } from './FlightItem';
 import { styles } from './style.modal';
 import { commonStyles } from '../../utils/CommonStyle';
 import CloseButton from '../CloseButton';
+import FlightList from './FlightList';
 
 const FlightFrom = ({ modalVisible, setModalVisible, flightData, sourceDetails, setSourceDetails }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Function to filter flight data based on search query
-  const filteredFlightData = flightData.filter(item => {
-    const cityName = item.displayData.source.airport.cityName.toLowerCase();
-    const airportName = item.displayData.source.airport.airportName.toLowerCase();
-    const cityCode = item.displayData.source.airport.cityCode.toLowerCase();
-    return cityName.includes(searchQuery.toLowerCase()) || airportName.includes(searchQuery.toLowerCase())||cityCode.includes(searchQuery.toLowerCase());
-  });
+
+  // const filteredFlightData = flightData.filter(item => {
+  //   const cityName = item.displayData.source.airport.cityName.toLowerCase();
+  //   const airportName = item.displayData.source.airport.airportName.toLowerCase();
+  //   const cityCode = item.displayData.source.airport.cityCode.toLowerCase();
+  //   return cityName.includes(searchQuery.toLowerCase()) || airportName.includes(searchQuery.toLowerCase())||cityCode.includes(searchQuery.toLowerCase());
+  // });
 
   return (
     <Modal
@@ -22,12 +23,11 @@ const FlightFrom = ({ modalVisible, setModalVisible, flightData, sourceDetails, 
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {
-        Alert.alert('Modal has been closed.');
         setModalVisible(!modalVisible);
       }}>
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <CloseButton closeHandler={() => setModalVisible(false)}/>
+          <CloseButton closeHandler={() => setModalVisible(false)} />
           <Text style={styles.modalText}>Select Departure</Text>
           <TextInput
             style={styles.searchBar}
@@ -37,10 +37,11 @@ const FlightFrom = ({ modalVisible, setModalVisible, flightData, sourceDetails, 
             placeholder="Search City/Airport"
           />
           <Text style={commonStyles.fontMedBold}>Popular Cities</Text>
+          <FlightList />
           <View>
             <FlatList
-              data={filteredFlightData}
-              renderItem={({ item }) => (
+              data={flightData}
+              renderItem={({item}) => (
                 <FlightFromItem
                   item={item}
                   sourceDetails={sourceDetails}

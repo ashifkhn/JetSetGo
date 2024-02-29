@@ -1,21 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import StyleConfig from '../../utils/StyleConfig';
 
-const Wallet = () => {
+const Bookings = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>Your Wallet</Text>
-        <Text style={[styles.headerText, styles.primaryText]}>Total Balance: $500</Text>
-      </View>
       <View style={styles.content}>
-        <Text style={styles.contentText}>Manage your funds and transactions here.</Text>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Add Money</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.transactionButton}>
-          <Text style={styles.buttonText}>View Transactions</Text>
-        </TouchableOpacity>
+        <Text style={styles.contentText}>Manage your booking and transactions here.</Text>
       </View>
     </View>
   );
@@ -32,9 +23,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   headerText: {
-    fontSize: 24,
-    color: '#0373F3',
-    textAlign: 'center',
+
   },
   primaryText: {
     fontWeight: 'bold',
@@ -46,7 +35,7 @@ const styles = StyleSheet.create({
   },
   contentText: {
     fontSize: 18,
-    color: '#0373F3',
+    color: StyleConfig.colors.primary,
     textAlign: 'center',
     marginBottom: 20,
   },
@@ -68,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Wallet;
+export default Bookings;
