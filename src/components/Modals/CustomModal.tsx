@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Modal,
   View,
@@ -9,11 +9,11 @@ import {
   StyleSheet,
   Dimensions,
   Alert,
-  Animated
+  Animated,
 } from 'react-native';
-import { ItemSeparator, FlightFromItem, FlightListCommon } from './FlightItem';
-import { styles } from './style.modal';
-import { commonStyles } from '../../utils/CommonStyle';
+import {ItemSeparator, FlightFromItem, FlightListCommon} from './FlightItem';
+import {styles} from './style.modal';
+import {commonStyles} from '../../utils/CommonStyle';
 import CloseButton from '../CloseButton';
 import FlightList from './FlightList';
 import StyleConfig from '../../utils/StyleConfig';
@@ -29,51 +29,50 @@ interface FlightFromProps {
   setDestinationDetails: string;
 }
 
-const FlightFrom: React.FC<FlightFromProps> = ({ modalVisible, setModalVisible, flightData, sourceDetails, setSourceDetails, sortByFare, destinationDetails, setDestinationDetails }) => {
+const FlightFrom: React.FC<FlightFromProps> = ({
+  modalVisible,
+  setModalVisible,
+  flightData,
+  sourceDetails,
+  setSourceDetails,
+  sortByFare,
+  destinationDetails,
+  setDestinationDetails,
+}) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [sortedAscending, setSortedAscending] = useState(false);
   const [sortByAirlineAscending, setSortByAirlineAscending] = useState(false);
   const [viewSortPopUp, setViewSortPopUp] = useState(false);
   const [animation] = useState(new Animated.Value(0));
-  const [sortedFlights, setSortedFlights] = useState([]);
+  const [filteredFlights, setFilteredFlights] = useState<FlightData[]>([]);
+  const [sortedFlights, setSortedFlights] = useState<FlightData[]>([]);
 
   useEffect(() => {
-    Animated.timing(animation, {
-      toValue: 1,
-      duration: 500, // Adjust duration as needed
-      useNativeDriver: true,
-    }).start();
-  }, []);
-
-  useEffect(() => {
+    setFilteredFlights(filterFlights(flightData));
     setSortedFlights(sortFlights());
-  }, [flightData, sortedAscending, sortByAirlineAscending]);
+  }, [flightData, sortedAscending, sortByAirlineAscending, searchQuery]);
 
-  const filteredFlightData = flightData.filter(item => {
-    const originCityName = item.origin.toLowerCase();
-    const destinationCityName = item.destination.toLowerCase();
-    const airline = item.airline.toLowerCase();
-    return (
-      originCityName.includes(searchQuery.toLowerCase()) ||
-      destinationCityName.includes(searchQuery.toLowerCase()) ||
-      airline.includes(searchQuery.toLowerCase())
-    );
-  });
+  const filterFlights = (data: FlightData[]) => {
+    return data.filter(item => {
+      const originCityName = item.origin.toLowerCase();
+      const destinationCityName = item.destination.toLowerCase();
+      const airline = item.airline.toLowerCase();
+      return (
+        originCityName.includes(searchQuery.toLowerCase()) ||
+        destinationCityName.includes(searchQuery.toLowerCase()) ||
+        airline.includes(searchQuery.toLowerCase())
+      );
+    });
+  };
 
-  const sortFlights = () =>  {
-    let sorted = filteredFlightData.slice();
+  const sortFlights = () => {
+    let sorted = [...filteredFlights];
 
     if (sortedAscending) {
       sorted.sort((a, b) => a.price - b.price);
     } else {
       sorted.sort((a, b) => b.price - a.price);
     }
-
-    // if (sortByAirlineAscending) {
-    //   sorted.sort((a, b) => a.airline.localeCompare(b.airline));
-    // } else {
-    //   sorted.sort((a, b) => b.airline.localeCompare(a.airline));
-    // }
 
     return sorted;
   };
