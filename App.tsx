@@ -5,9 +5,8 @@
  * @format
  */
 
-import React,{useEffect} from 'react';
+import React from 'react';
 import StackNavigator from './src/navigation/StackNavigator';
-import { Alert } from 'react-native';
 
 
 

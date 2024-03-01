@@ -808,7 +808,7 @@ const Home = () => {
     children: 0,
     infants: 0,
   });
-  const [toggleCheckBox, setToggleCheckBox] = useState<boolean>(false);
+  const [toggleCheckBox, setToggleCheckBox] = useState<boolean>(true);
   const [selectedClass, setSelectedClass] = useState<string>('Economy');
   const [loader, setLoader] = useState<boolean>(true);
 
@@ -873,7 +873,7 @@ const Home = () => {
             <Pressable
               style={styles.inputFromTo}
               onPress={() => setModalVisibleFrom(true)}>
-              <Text>Search Flight</Text>
+              <Text style={styles.label}>Search Flight</Text>
               <TextInput
                 placeholder="Select"
                 value={
@@ -881,6 +881,7 @@ const Home = () => {
                 }
                 editable={false}
                 style={styles.textInput}
+                placeholderTextColor={StyleConfig.colors.placeholderText}
               />
             </Pressable>
           </View>
@@ -888,12 +889,13 @@ const Home = () => {
             <Pressable
               style={styles.inputDeparture}
               onPress={() => setModalDeparture(true)}>
-              <Text>Departure Date</Text>
+              <Text style={styles.label}>Departure Date</Text>
               <TextInput
                 placeholder="Select Date"
                 value={selectedDate?.dateString}
                 editable={false}
                 style={styles.textInput}
+                placeholderTextColor={StyleConfig.colors.placeholderText}
               />
             </Pressable>
           </View>
@@ -901,12 +903,13 @@ const Home = () => {
             <Pressable
               style={styles.inputDeparture}
               onPress={() => setModalTraveler(true)}>
-              <Text>Travelers & Cabin Class</Text>
+              <Text style={styles.label}>Travelers & Cabin Class</Text>
               <TextInput
                 placeholder="Select"
                 value={renderTravelerDetails() + ' • ' + selectedClass}
                 editable={false}
                 style={styles.textInputTravelers}
+                placeholderTextColor={StyleConfig.colors.placeholderText}
               />
             </Pressable>
           </View>
@@ -915,8 +918,10 @@ const Home = () => {
               disabled={false}
               value={toggleCheckBox}
               onValueChange={newValue => setToggleCheckBox(newValue)}
+
+              
             />
-            <Text>Show Non-stop flights only</Text>
+            <Text style={styles.label}>Show Non-stop flights only</Text>
           </View>
 
           <FlightFrom
@@ -1032,20 +1037,20 @@ const styles = StyleSheet.create({
   textInput: {
     color: StyleConfig.colors.darkGrey,
     fontSize: scale(16),
-    // fontWeight: 'bold',
   },
   textInputTravelers: {
     color: StyleConfig.colors.darkGrey,
     fontSize: scale(12),
-    // fontWeight: 'bold',
   },
   nonStopFlights: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: scale(20),
-    // marginVertical:scale(10)
   },
+  label:{
+    color:StyleConfig.colors.greyLabel
+  }
 });
 
 export default Home;

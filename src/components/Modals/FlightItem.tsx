@@ -120,11 +120,11 @@ const FlightListCommon: React.FC<FlightItemProps> = ({
       <View style={{flex: 1}}>
         <Text style={commonStyles.fontSmBold}>{item.origin} - </Text>
         <Text style={commonStyles.fontSmBold}>{item.destination}</Text>
-        <Text>Duration: {item.duration}</Text>
+        <Text style={commonStyles.fontSm}>Duration: {item.duration}</Text>
       </View>
       <View style={{display: 'flex', alignItems: 'flex-end'}}>
-        <Text>₹{item.price}</Text>
-        <Text>{item.airline}</Text>
+        <Text style={commonStyles.fontSmBold}>₹{item.price}</Text>
+        <Text style={commonStyles.fontSm}>{item.airline}</Text>
       </View>
     </Pressable>
   );

@@ -1,7 +1,7 @@
 const primary_color = '#881098';
 const floating_color = '#656F85';
 const placeholderView_color = '#1F2B42';
-const placeholderText_color = '#B1B1B1';
+const placeholderText_color = '#D3D3D3';
 const placeholderText_color2 = 'rgba(255,255,255, 0.3)';
 const placeholderText_color3 = '#949EB5';
 const separator_color = '#151C29';

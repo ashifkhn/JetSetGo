@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, FlatList, StyleSheet} from 'react-native';
+import { commonStyles } from '../../utils/CommonStyle';
 
 interface Flight {
   id: string;
@@ -48,10 +49,10 @@ const flightData: Flight[] = [
 const FlightCard: React.FC<FlightCardProps> = ({data}) => {
   return (
     <View style={styles.card}>
-      <Text style={styles.text}>
+      <Text style={commonStyles.fontSmBold}>
         {data.source} - {data.destination}
       </Text>
-      <Text style={styles.text}>{data.duration}</Text>
+      <Text style={commonStyles.fontSm}>{data.duration}</Text>
     </View>
   );
 };

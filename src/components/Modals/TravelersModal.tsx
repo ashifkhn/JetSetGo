@@ -175,7 +175,7 @@ const TravelersModal: React.FC<TravelersModalProps> = ({
                   selectedClass === 'economy' && styles.selectedClass,
                 ]}
                 onPress={() => setSelectedClass('economy')}>
-                <Text>Economy</Text>
+                <Text style={commonStyles.fontSm}>Economy</Text>
               </Pressable>
               <Pressable
                 style={[
@@ -183,7 +183,7 @@ const TravelersModal: React.FC<TravelersModalProps> = ({
                   selectedClass === 'Premium' && styles.selectedClass,
                 ]}
                 onPress={() => setSelectedClass('Premium')}>
-                <Text>Premium Economy</Text>
+                <Text style={commonStyles.fontSm}>Premium Economy</Text>
               </Pressable>
               <Pressable
                 style={[
@@ -191,7 +191,7 @@ const TravelersModal: React.FC<TravelersModalProps> = ({
                   selectedClass === 'Business' && styles.selectedClass,
                 ]}
                 onPress={() => setSelectedClass('Business')}>
-                <Text>Business</Text>
+                <Text style={commonStyles.fontSm}>Business</Text>
               </Pressable>
             </View>
             <TouchableOpacity

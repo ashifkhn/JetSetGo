@@ -25,7 +25,13 @@ export const commonStyles = StyleSheet.create({
     fontSize: scale(14),
     color: StyleConfig.colors.darkGrey,
     // marginLeft:scale(10)
-    fontWeight:"bold"
+    fontWeight: 'bold',
+  },
+  fontSm: {
+    fontSize: scale(14),
+    color: StyleConfig.colors.darkGrey,
+    // marginLeft:scale(10)
+    // fontWeight: 'bold',
   },
   button: {
     backgroundColor: StyleConfig.colors.primary,

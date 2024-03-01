@@ -164,5 +164,6 @@ export const styles = StyleSheet.create({
    backgroundColor:"white",
    right:scale(10),
    top:20,
-   zIndex:2}
+   zIndex:2,
+  }
 });

@@ -16,6 +16,7 @@ import { styles } from './style.modal';
 import { commonStyles } from '../../utils/CommonStyle';
 import CloseButton from '../CloseButton';
 import FlightList from './FlightList';
+import StyleConfig from '../../utils/StyleConfig';
 
 interface FlightFromProps {
   modalVisible: boolean;
@@ -111,12 +112,19 @@ const FlightFrom: React.FC<FlightFromProps> = ({ modalVisible, setModalVisible, 
             onChangeText={text => setSearchQuery(text)}
             maxLength={200}
             placeholder="Search City/Airport/Flight"
+            placeholderTextColor={StyleConfig.colors.placeholderText}
           />
 
           <Text style={commonStyles.fontMedBold}>Popular Cities</Text>
           <FlightList />
           <View>
-            <View style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', flexDirection: 'row' }}>
+            <View
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+                flexDirection: 'row',
+              }}>
               <Pressable onPress={viewSortOptions}>
                 <Text style={commonStyles.fontSmBold}>Sort </Text>
               </Pressable>
@@ -125,12 +133,12 @@ const FlightFrom: React.FC<FlightFromProps> = ({ modalVisible, setModalVisible, 
                   <Pressable
                     onPress={sortFlightsHighToLow}
                     style={styles.sortButton}>
-                    <Text>High to low</Text>
+                    <Text style={commonStyles.fontSm}>High to low</Text>
                   </Pressable>
                   <Pressable
                     onPress={sortFlightsLowToHigh}
                     style={styles.sortButton}>
-                    <Text>Low to high</Text>
+                    <Text style={commonStyles.fontSm}>Low to high</Text>
                   </Pressable>
                 </View>
               ) : (
@@ -139,7 +147,7 @@ const FlightFrom: React.FC<FlightFromProps> = ({ modalVisible, setModalVisible, 
             </View>
             <FlatList
               data={sortedFlights}
-              renderItem={({ item }) => (
+              renderItem={({item}) => (
                 <FlightListCommon
                   item={item}
                   sourceDetails={sourceDetails}
