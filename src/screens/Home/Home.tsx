@@ -12,22 +12,17 @@ import {
   Alert,
   Dimensions,
   FlatList,
-  ScrollView
+  ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import axios from 'axios';
 import {scale} from '../../utils/utils';
 import StyleConfig from '../../utils/StyleConfig';
 import FlightFrom from '../../components/Modals/CustomModal';
-import FlightTo from '../../components/Modals/FlightTo';
 import DepartureModal from '../../components/Modals/DepartureDateModal';
 import TravelersModal from '../../components/Modals/TravelersModal';
 import LinearGradient from 'react-native-linear-gradient';
-import { commonStyles } from '../../utils/CommonStyle';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-// import { ScrollView } from 'react-native-gesture-handler';
-
-
-
+import {commonStyles} from '../../utils/CommonStyle';
 
 const flightData1 = [
   {
@@ -459,7 +454,7 @@ const flightData1 = [
       totalDuration: '2h 20m',
     },
   },
-  
+
   {
     id: '1wllll',
     fare: 38140,
@@ -501,40 +496,339 @@ const flightData1 = [
   },
 ];
 
+const flightData2 = [
+  {
+    id: 1,
+    gate: 'A2',
+    price: 5000,
+    origin: 'Delhi',
+    airline: 'IndiGo',
+    aircraft: 'Airbus A320',
+    duration: '3 hours',
+    arrivalTime: '2024-03-15T11:00:00',
+    destination: 'Mumbai',
+    flightNumber: '6E101',
+    departureTime: '2024-03-15T08:00:00',
+    seatsAvailable: 120,
+  },
+  {
+    id: 2,
+    gate: 'B3',
+    price: 6000,
+    origin: 'Delhi',
+    airline: 'Air India',
+    aircraft: 'Boeing 787',
+    duration: '3 hours 30 minutes',
+    arrivalTime: '2024-03-15T12:30:00',
+    destination: 'Bangalore',
+    flightNumber: 'AI202',
+    departureTime: '2024-03-15T09:00:00',
+    seatsAvailable: 100,
+  },
+  {
+    id: 3,
+    gate: 'C1',
+    price: 5500,
+    origin: 'Mumbai',
+    airline: 'SpiceJet',
+    aircraft: 'Boeing 737',
+    duration: '3 hours 30 minutes',
+    arrivalTime: '2024-03-15T13:30:00',
+    destination: 'Delhi',
+    flightNumber: 'SG303',
+    departureTime: '2024-03-15T10:00:00',
+    seatsAvailable: 90,
+  },
+  {
+    id: 4,
+    gate: 'D2',
+    price: 4500,
+    origin: 'Mumbai',
+    airline: 'Vistara',
+    aircraft: 'Airbus A320',
+    duration: '2 hours 30 minutes',
+    arrivalTime: '2024-03-15T13:30:00',
+    destination: 'Bangalore',
+    flightNumber: 'UK404',
+    departureTime: '2024-03-15T11:00:00',
+    seatsAvailable: 110,
+  },
+  {
+    id: 5,
+    gate: 'A4',
+    price: 6500,
+    origin: 'Bangalore',
+    airline: 'GoAir',
+    aircraft: 'Airbus A320',
+    duration: '3 hours 30 minutes',
+    arrivalTime: '2024-03-15T15:30:00',
+    destination: 'Delhi',
+    flightNumber: 'G805',
+    departureTime: '2024-03-15T12:00:00',
+    seatsAvailable: 80,
+  },
+  {
+    id: 6,
+    gate: 'B2',
+    price: 4000,
+    origin: 'Bangalore',
+    airline: 'AirAsia',
+    aircraft: 'Airbus A320',
+    duration: '1 hour 30 minutes',
+    arrivalTime: '2024-03-15T14:30:00',
+    destination: 'Mumbai',
+    flightNumber: 'I505',
+    departureTime: '2024-03-15T13:00:00',
+    seatsAvailable: 100,
+  },
+  {
+    id: 7,
+    gate: 'C3',
+    price: 5500,
+    origin: 'Delhi',
+    airline: 'IndiGo',
+    aircraft: 'Airbus A320',
+    duration: '3 hours',
+    arrivalTime: '2024-03-15T12:30:00',
+    destination: 'Chennai',
+    flightNumber: '6E107',
+    departureTime: '2024-03-15T09:30:00',
+    seatsAvailable: 120,
+  },
+  {
+    id: 8,
+    gate: 'D4',
+    price: 4800,
+    origin: 'Mumbai',
+    airline: 'Air India',
+    aircraft: 'Boeing 737',
+    duration: '3 hours',
+    arrivalTime: '2024-03-15T14:30:00',
+    destination: 'Chennai',
+    flightNumber: 'AI208',
+    departureTime: '2024-03-15T11:30:00',
+    seatsAvailable: 90,
+  },
+  {
+    id: 9,
+    gate: 'A6',
+    price: 6000,
+    origin: 'Bangalore',
+    airline: 'SpiceJet',
+    aircraft: 'Boeing 737',
+    duration: '3 hours',
+    arrivalTime: '2024-03-15T16:30:00',
+    destination: 'Kolkata',
+    flightNumber: 'SG309',
+    departureTime: '2024-03-15T13:30:00',
+    seatsAvailable: 100,
+  },
+  {
+    id: 10,
+    gate: 'B7',
+    price: 7000,
+    origin: 'Delhi',
+    airline: 'Vistara',
+    aircraft: 'Airbus A320',
+    duration: '3 hours',
+    arrivalTime: '2024-03-15T17:00:00',
+    destination: 'Kolkata',
+    flightNumber: 'UK410',
+    departureTime: '2024-03-15T14:00:00',
+    seatsAvailable: 120,
+  },
+  {
+    id: 11,
+    gate: 'C8',
+    price: 6200,
+    origin: 'Mumbai',
+    airline: 'GoAir',
+    aircraft: 'Airbus A320',
+    duration: '3 hours',
+    arrivalTime: '2024-03-15T18:00:00',
+    destination: 'Kolkata',
+    flightNumber: 'G811',
+    departureTime: '2024-03-15T15:00:00',
+    seatsAvailable: 80,
+  },
+  {
+    id: 12,
+    gate: 'D1',
+    price: 5400,
+    origin: 'Chennai',
+    airline: 'AirAsia',
+    aircraft: 'Airbus A320',
+    duration: '3 hours 30 minutes',
+    arrivalTime: '2024-03-15T13:30:00',
+    destination: 'Delhi',
+    flightNumber: 'I513',
+    departureTime: '2024-03-15T10:00:00',
+    seatsAvailable: 100,
+  },
+  {
+    id: 13,
+    gate: 'A3',
+    price: 5300,
+    origin: 'Chennai',
+    airline: 'IndiGo',
+    aircraft: 'Airbus A320',
+    duration: '3 hours',
+    arrivalTime: '2024-03-15T15:00:00',
+    destination: 'Mumbai',
+    flightNumber: '6E113',
+    departureTime: '2024-03-15T12:00:00',
+    seatsAvailable: 110,
+  },
+  {
+    id: 14,
+    gate: 'B5',
+    price: 5500,
+    origin: 'Chennai',
+    airline: 'Air India',
+    aircraft: 'Boeing 787',
+    duration: '3 hours',
+    arrivalTime: '2024-03-15T16:30:00',
+    destination: 'Bangalore',
+    flightNumber: 'AI216',
+    departureTime: '2024-03-15T13:30:00',
+    seatsAvailable: 90,
+  },
+  {
+    id: 15,
+    gate: 'C4',
+    price: 5900,
+    origin: 'Kolkata',
+    airline: 'SpiceJet',
+    aircraft: 'Boeing 737',
+    duration: '3 hours 30 minutes',
+    arrivalTime: '2024-03-15T14:30:00',
+    destination: 'Delhi',
+    flightNumber: 'SG319',
+    departureTime: '2024-03-15T11:00:00',
+    seatsAvailable: 100,
+  },
+  {
+    id: 16,
+    gate: 'D6',
+    price: 6100,
+    origin: 'Kolkata',
+    airline: 'Vistara',
+    aircraft: 'Airbus A320',
+    duration: '3 hours',
+    arrivalTime: '2024-03-15T15:30:00',
+    destination: 'Mumbai',
+    flightNumber: 'UK424',
+    departureTime: '2024-03-15T12:30:00',
+    seatsAvailable: 120,
+  },
+  {
+    id: 17,
+    gate: 'A7',
+    price: 6800,
+    origin: 'Kolkata',
+    airline: 'GoAir',
+    aircraft: 'Airbus A320',
+    duration: '3 hours 30 minutes',
+    arrivalTime: '2024-03-15T17:30:00',
+    destination: 'Bangalore',
+    flightNumber: 'G827',
+    departureTime: '2024-03-15T14:00:00',
+    seatsAvailable: 80,
+  },
+  {
+    id: 18,
+    gate: 'B8',
+    price: 5200,
+    origin: 'Delhi',
+    airline: 'AirAsia',
+    aircraft: 'Airbus A320',
+    duration: '3 hours',
+    arrivalTime: '2024-03-15T18:30:00',
+    destination: 'Chennai',
+    flightNumber: 'I529',
+    departureTime: '2024-03-15T15:30:00',
+    seatsAvailable: 90,
+  },
+  {
+    id: 19,
+    gate: 'C9',
+    price: 5400,
+    origin: 'Mumbai',
+    airline: 'IndiGo',
+    aircraft: 'Airbus A320',
+    duration: '3 hours',
+    arrivalTime: '2024-03-15T19:00:00',
+    destination: 'Chennai',
+    flightNumber: '6E139',
+    departureTime: '2024-03-15T16:00:00',
+    seatsAvailable: 100,
+  },
+  {
+    id: 20,
+    gate: 'D10',
+    price: 6200,
+    origin: 'Bangalore',
+    airline: 'Air India',
+    aircraft: 'Boeing 787',
+    duration: '3 hours 30 minutes',
+    arrivalTime: '2024-03-15T20:30:00',
+    destination: 'Kolkata',
+    flightNumber: 'AI230',
+    departureTime: '2024-03-15T17:00:00',
+    seatsAvailable: 110,
+  },
+];
+
+interface FlightData {
+  id: number;
+  origin: string;
+  destination: string;
+  airline: string;
+  price: number;
+}
+
+interface TravelerDetails {
+  adults: number;
+  children: number;
+  infants: number;
+}
+
 const Home = () => {
-  const [modalVisibleFrom, setModalVisibleFrom] = useState(false);
-  const [modalVisibleTo, setModalVisibleTo] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [flightData, setFlightData] = useState([]);
-  const [sourceDetails, setSourceDetails] = useState({})
-  const [destinationDetails, setDestinationDetails] = useState({})
-  const [modalDeparture, setModalDeparture] = useState(false)
-  const [selectedDate, setSelectedDate]=useState({})
-  const [modalTraveler, setModalTraveler] = useState(false)
-  const [travelerDetails,setTravelerDetails] = useState({
+  const [modalVisibleFrom, setModalVisibleFrom] = useState<boolean>(false);
+  const [modalVisibleTo, setModalVisibleTo] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [flightData, setFlightData] = useState<FlightData[]>([]);
+  const [sourceDetails, setSourceDetails] = useState<string>('');
+  const [destinationDetails, setDestinationDetails] = useState<string>('');
+  const [modalDeparture, setModalDeparture] = useState<boolean>(false);
+  const [selectedDate, setSelectedDate] = useState<Date>({});
+  const [modalTraveler, setModalTraveler] = useState<boolean>(false);
+  const [travelerDetails, setTravelerDetails] = useState<TravelerDetails>({
     adults: 1,
     children: 0,
-    infants: 0
-  })
-  const [toggleCheckBox, setToggleCheckBox] = useState(false);
+    infants: 0,
+  });
+  const [toggleCheckBox, setToggleCheckBox] = useState<boolean>(false);
+  const [selectedClass, setSelectedClass] = useState<string>('Economy');
+  const [loader, setLoader] = useState<boolean>(true);
 
-  const swapCities=()=>{
+  const swapCities = () => {
     let temp = sourceDetails;
-    setSourceDetails(destinationDetails)
-    setDestinationDetails(temp)
-  }
-
- 
-
-  console.log(travelerDetails)
+    setSourceDetails(destinationDetails);
+    setDestinationDetails(temp);
+  };
 
   const fetchFlightData = async () => {
+    console.log('call');
     try {
-      const response = await axios.get(
-        'https://mocki.io/v1/de081a9f-8d26-4f91-922c-04b0269d4766',
-      );
-      console.log('Flight data:', JSON.stringify(response.data.data.result));
-      setFlightData(response.data.data.result);
+      console.log('call1');
+      // const response = await axios.get(
+      //   'https://api.npoint.io/378e02e8e732bb1ac55b',
+      // );
+      // console.log('Flight data:',response);
+      // setFlightData(response.data);
+      setFlightData(flightData2);
+      setLoader(false);
     } catch (error) {
       console.error('Error fetching flight data:', error);
       // Handle error as needed
@@ -542,8 +836,21 @@ const Home = () => {
   };
 
   const handleSearchFlights = () => {
-    // Implement flight search logic here
     console.log('Searching flights...');
+  };
+
+  const renderTravelerDetails = () => {
+    let details = travelerDetails?.adults + ' Adults ';
+
+    if (travelerDetails?.children > 0) {
+      details += ', ' + travelerDetails.children + ' Children';
+    }
+
+    if (travelerDetails?.infants > 0) {
+      details += ', ' + travelerDetails.infants + ' Infants';
+    }
+
+    return details;
   };
 
   useEffect(() => {
@@ -554,57 +861,24 @@ const Home = () => {
     <View style={styles.container}>
       <LinearGradient
         colors={['#8d0b93', '#7524ac', '#7524ac']}
-        style={{
-          flex: 1,
-          position: 'absolute',
-          width: Dimensions.get('window').width,
-          height: '60%',
-          borderBottomLeftRadius: 30,
-          borderBottomRightRadius: 30,
-        }}
+        style={styles.gradient}
         start={{x: 1, y: 0}}
         end={{x: 1, y: 1}}
         locations={[0.0704, 0.9638, 1.5433]}>
         <Text></Text>
       </LinearGradient>
-
       <View style={styles.formContainer}>
         <View>
           <View style={styles.fromTo}>
             <Pressable
               style={styles.inputFromTo}
               onPress={() => setModalVisibleFrom(true)}>
-              <Text>From</Text>
+              <Text>Search Flight</Text>
               <TextInput
-                placeholder="Select City"
-                value={sourceDetails?.airport?.cityName}
-                editable={false}
-                style={styles.textInput}
-              />
-            </Pressable>
-
-            <Pressable
-              style={{
-                width: '10%,',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              onPress={swapCities}>
-              <Icon
-                name={'arrow-left-right'}
-                size={24}
-                color={StyleConfig.colors.primary}
-              />
-            </Pressable>
-
-            <Pressable
-              style={styles.inputFromTo}
-              onPress={() => setModalVisibleTo(true)}>
-              <Text>To</Text>
-              <TextInput
-                placeholder="Select City"
-                value={destinationDetails?.airport?.cityName}
-                onChangeText={text => setToLocation(text)}
+                placeholder="Select"
+                value={
+                  sourceDetails && sourceDetails + ' - ' + destinationDetails
+                }
                 editable={false}
                 style={styles.textInput}
               />
@@ -630,17 +904,9 @@ const Home = () => {
               <Text>Travelers & Cabin Class</Text>
               <TextInput
                 placeholder="Select"
-                value={
-                  travelerDetails?.adults +
-                  ' Adults, ' +
-                  travelerDetails?.children +
-                  ' Children, ' +
-                  travelerDetails?.infants +
-                  ' Infants' +
-                  ' : '
-                }
+                value={renderTravelerDetails() + ' • ' + selectedClass}
                 editable={false}
-                style={styles.textInput}
+                style={styles.textInputTravelers}
               />
             </Pressable>
           </View>
@@ -658,12 +924,14 @@ const Home = () => {
             setModalVisible={setModalVisibleFrom}
             searchQuery={searchQuery}
             setSearchQuery={setSearchQuery}
-            flightData={flightData1}
+            flightData={flightData}
             setSourceDetails={setSourceDetails}
             sourceDetails={sourceDetails}
+            destinationDetails={destinationDetails}
+            setDestinationDetails={setDestinationDetails}
           />
 
-          <FlightTo
+          {/* <FlightTo
             modalVisible={modalVisibleTo}
             setModalVisible={setModalVisibleTo}
             searchQuery={searchQuery}
@@ -671,7 +939,7 @@ const Home = () => {
             flightData={flightData1}
             setDestinationDetails={setDestinationDetails}
             destinationDetails={destinationDetails}
-          />
+          /> */}
 
           <DepartureModal
             modalVisible={modalDeparture}
@@ -686,11 +954,13 @@ const Home = () => {
             setModalVisible={setModalTraveler}
             travelerDetails={travelerDetails}
             setTravelerDetails={setTravelerDetails}
+            selectedClass={selectedClass}
+            setSelectedClass={setSelectedClass}
           />
           <TouchableOpacity
             style={commonStyles.button}
             onPress={handleSearchFlights}>
-            <Text style={commonStyles.buttonText}>Search Flights</Text>
+            <Text style={commonStyles.buttonText}>Book Now</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -704,6 +974,15 @@ const styles = StyleSheet.create({
     padding: 20,
   },
 
+  gradient: {
+    flex: 1,
+    position: 'absolute',
+    width: Dimensions.get('window').width,
+    height: '60%',
+    borderBottomLeftRadius: 30,
+    borderBottomRightRadius: 30,
+  },
+
   fromTo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -711,7 +990,7 @@ const styles = StyleSheet.create({
   },
 
   inputFromTo: {
-    width: '40%',
+    width: '95%',
     borderBottomWidth: 1,
     borderBottomColor: StyleConfig.colors.primary,
     marginHorizontal: 10,
@@ -753,6 +1032,11 @@ const styles = StyleSheet.create({
   textInput: {
     color: StyleConfig.colors.darkGrey,
     fontSize: scale(16),
+    // fontWeight: 'bold',
+  },
+  textInputTravelers: {
+    color: StyleConfig.colors.darkGrey,
+    fontSize: scale(12),
     // fontWeight: 'bold',
   },
   nonStopFlights: {

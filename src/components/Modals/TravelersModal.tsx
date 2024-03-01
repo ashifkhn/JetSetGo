@@ -10,69 +10,85 @@ import {
   Dimensions,
   Alert,
   ToastAndroid,
-  TouchableOpacity
-
+  TouchableOpacity,
 } from 'react-native';
-import { styles } from './style.modal';
+import {styles} from './style.modal';
 import CloseButton from '../CloseButton';
-import { commonStyles } from '../../utils/CommonStyle';
-styles
+import {commonStyles} from '../../utils/CommonStyle';
+interface TravelersModalProps {
+  modalVisible: boolean;
+  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  travelerDetails: {
+    adults: number;
+    children: number;
+    infants: number;
+  };
+  setTravelerDetails: React.Dispatch<
+    React.SetStateAction<{
+      adults: number;
+      children: number;
+      infants: number;
+    }>
+  >;
+  selectedClass: string;
+  setSelectedClass: React.Dispatch<React.SetStateAction<string>>;
+}
 
-const TravelersModal = ({
+const TravelersModal: React.FC<TravelersModalProps> = ({
   modalVisible,
   setModalVisible,
   travelerDetails,
   setTravelerDetails,
+  selectedClass,
+  setSelectedClass,
 }) => {
-  const [selectedClass, setSelectedClass] = useState('economy');
-
-    const incrementAdults = () => {
-      setTravelerDetails(prevDetails => ({
-        ...prevDetails,
-        adults: prevDetails.adults + 1,
-      }));
-    };
-
-    const decrementAdults = () => {
-      if (travelerDetails.adults > 1) {
-        setTravelerDetails(prevDetails => ({
-          ...prevDetails,
-          adults: prevDetails.adults - 1,
-        }));
-      }
-    };
-
-    const incrementChildren = () => {
-      setTravelerDetails(prevDetails => ({
-        ...prevDetails,
-        children: prevDetails.children + 1,
-      }));
-    };
-
-    const decrementChildren = () => {
-      if (travelerDetails.children > 0) {
-        setTravelerDetails(prevDetails => ({
-          ...prevDetails,
-          children: prevDetails.children - 1,
-        }));
-      }
-    };
-
-const incrementInfants = () => {
-  // Check if there are adults available to accompany the infant
-  if (travelerDetails.adults > travelerDetails.infants) {
+  const incrementAdults = () => {
     setTravelerDetails(prevDetails => ({
       ...prevDetails,
-      infants: prevDetails.infants + 1,
+      adults: prevDetails.adults + 1,
     }));
-  } else {
-    // If there are no adults available, show a toast message
-    ToastAndroid.show(
-      'Only one infant is allowed per adult',
-      ToastAndroid.SHORT,
-    );
-  }
-};
+  };
+
+  const decrementAdults = () => {
+    if (travelerDetails.adults > 1) {
+      setTravelerDetails(prevDetails => ({
+        ...prevDetails,
+        adults: prevDetails.adults - 1,
+      }));
+    }
+  };
+
+  const incrementChildren = () => {
+    setTravelerDetails(prevDetails => ({
+      ...prevDetails,
+      children: prevDetails.children + 1,
+    }));
+  };
+
+  const decrementChildren = () => {
+    if (travelerDetails.children > 0) {
+      setTravelerDetails(prevDetails => ({
+        ...prevDetails,
+        children: prevDetails.children - 1,
+      }));
+    }
+  };
+
+  const incrementInfants = () => {
+    // Check if there are adults available to accompany the infant
+    if (travelerDetails.adults > travelerDetails.infants) {
+      setTravelerDetails(prevDetails => ({
+        ...prevDetails,
+        infants: prevDetails.infants + 1,
+      }));
+    } else {
+      // If there are no adults available, show a toast message
+      ToastAndroid.show(
+        'Only one infant is allowed per adult',
+        ToastAndroid.SHORT,
+      );
+    }
+  };
 
   const decrementInfants = () => {
     if (travelerDetails.infants > 0) {
@@ -82,7 +98,6 @@ const incrementInfants = () => {
       }));
     }
   };
-
 
   return (
     <Modal
@@ -100,9 +115,7 @@ const incrementInfants = () => {
             {/* Display current counts and buttons to increment/decrement */}
             <View style={styles.countContainer}>
               <View>
-                <Text style={commonStyles.fontMedBlack}>
-                  Adults
-                </Text>
+                <Text style={commonStyles.fontMedBlack}>Adults</Text>
                 <Text style={commonStyles.fontMed}>12+ years</Text>
               </View>
               <View style={styles.buttonContainer}>
@@ -120,9 +133,7 @@ const incrementInfants = () => {
 
             <View style={styles.countContainer}>
               <View>
-                <Text style={commonStyles.fontMedBlack}>
-                  Children
-                </Text>
+                <Text style={commonStyles.fontMedBlack}>Children</Text>
                 <Text style={commonStyles.fontMed}>2-12 years</Text>
               </View>
               <View style={styles.buttonContainer}>
@@ -140,9 +151,7 @@ const incrementInfants = () => {
 
             <View style={styles.countContainer}>
               <View>
-                <Text style={commonStyles.fontMedBlack}>
-                  Infants
-                </Text>
+                <Text style={commonStyles.fontMedBlack}>Infants</Text>
                 <Text style={commonStyles.fontMed}>0-2 years</Text>
               </View>
               <View style={styles.buttonContainer}>
@@ -171,23 +180,25 @@ const incrementInfants = () => {
               <Pressable
                 style={[
                   styles.classButton,
-                  selectedClass === 'premium' && styles.selectedClass,
+                  selectedClass === 'Premium' && styles.selectedClass,
                 ]}
-                onPress={() => setSelectedClass('premium')}>
+                onPress={() => setSelectedClass('Premium')}>
                 <Text>Premium Economy</Text>
               </Pressable>
               <Pressable
                 style={[
                   styles.classButton,
-                  selectedClass === 'business' && styles.selectedClass,
+                  selectedClass === 'Business' && styles.selectedClass,
                 ]}
-                onPress={() => setSelectedClass('business')}>
+                onPress={() => setSelectedClass('Business')}>
                 <Text>Business</Text>
               </Pressable>
             </View>
-            <TouchableOpacity style={commonStyles.button} onPress={() => {
-              setModalVisible(false);
-            }}>
+            <TouchableOpacity
+              style={commonStyles.button}
+              onPress={() => {
+                setModalVisible(false);
+              }}>
               <Text style={commonStyles.buttonText}>Continue</Text>
             </TouchableOpacity>
           </View>
@@ -198,4 +209,3 @@ const incrementInfants = () => {
 };
 
 export default TravelersModal;
-

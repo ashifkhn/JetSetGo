@@ -10,7 +10,15 @@ import {CalendarList, LocaleConfig} from 'react-native-calendars';
 import CloseButton from '../CloseButton';
 import {styles} from './style.modal';
 
-const DepartureModal = ({
+
+interface DepartureModalProps {
+  modalVisible: boolean;
+  setModalVisible: (visible: boolean) => void;
+  selectedDate: Date;
+  setSelectedDate: (date: Date) => void;
+}
+
+const DepartureModal: React.FC<DepartureModalProps> = ({
   modalVisible,
   setModalVisible,
   selectedDate,
@@ -27,7 +35,6 @@ const DepartureModal = ({
     // Cleanup the timer on component unmount
     return () => clearTimeout(timer);
   }, []);
-  
 
   return (
     <Modal
@@ -43,7 +50,10 @@ const DepartureModal = ({
           <Text style={styles.modalText}>Select Date</Text>
           {loading ? (
             <View style={styles.loaderContainer}>
-              <ActivityIndicator size="large" color={StyleConfig.colors.primary} />
+              <ActivityIndicator
+                size="large"
+                color={StyleConfig.colors.primary}
+              />
             </View>
           ) : (
             <CalendarList

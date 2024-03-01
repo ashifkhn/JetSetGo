@@ -3,7 +3,7 @@ import { createBottomTabNavigator, BottomTabNavigationProp } from '@react-naviga
 import { RouteProp } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Home from '../screens/Home/Home';
-import Wallet from '../screens/Wallet/Wallet';
+import Wallet from '../screens/Wallet/Bookings';
 import { scale } from '../utils/utils';
 import StyleConfig from '../utils/StyleConfig';
 

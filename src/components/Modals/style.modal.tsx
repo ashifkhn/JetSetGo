@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     // flex: 1,
     backgroundColor: 'white',
     padding: 20,
-    marginBottom:20
+    marginBottom: 20,
   },
 
   fromTo: {
@@ -73,7 +73,7 @@ export const styles = StyleSheet.create({
   modalView: {
     backgroundColor: 'white',
     // borderRadius: 20,
-    height: "100%",
+    height: '100%',
     width: Dimensions.get('screen').width,
     shadowColor: '#000',
     shadowOffset: {
@@ -121,7 +121,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#DDDDDD',
     padding: 8,
     borderRadius: 5,
-    marginHorizontal: 5,
+    marginHorizontal: 15,
     width: 30,
     alignItems: 'center',
   },
@@ -138,7 +138,6 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   classContainer: {
-    
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginVertical: 20,
@@ -152,4 +151,18 @@ export const styles = StyleSheet.create({
   selectedClass: {
     backgroundColor: 'lightblue',
   },
+  sortButton:{
+    // backgroundColor: 'white',
+    padding:10,
+    borderWidth:0.5,
+    borderBottomColor:"black",
+    width:scale(100),
+    height:scale(40)
+  },
+  sortPopUp:{
+  position:"absolute",
+   backgroundColor:"white",
+   right:scale(10),
+   top:20,
+   zIndex:2}
 });

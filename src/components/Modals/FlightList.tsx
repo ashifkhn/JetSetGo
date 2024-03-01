@@ -1,8 +1,18 @@
 import React from 'react';
 import {View, Text, FlatList, StyleSheet} from 'react-native';
 
-// Mock flight data
-const flightData = [
+interface Flight {
+  id: string;
+  source: string;
+  destination: string;
+  duration: string;
+}
+
+interface FlightCardProps {
+  data: Flight;
+}
+
+const flightData: Flight[] = [
   {
     id: '1',
     source: 'New York',
@@ -35,7 +45,7 @@ const flightData = [
   },
 ];
 
-const FlightCard = ({data}) => {
+const FlightCard: React.FC<FlightCardProps> = ({data}) => {
   return (
     <View style={styles.card}>
       <Text style={styles.text}>
@@ -46,7 +56,7 @@ const FlightCard = ({data}) => {
   );
 };
 
-const FlightList = () => {
+const FlightList: React.FC = () => {
   return (
     <View style={styles.container}>
       <FlatList
@@ -61,11 +71,8 @@ const FlightList = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-  },
+  container: {},
   card: {
-    // backgroundColor: 'lightgray',
     padding: 20,
     margin: 10,
     borderRadius: 10,
